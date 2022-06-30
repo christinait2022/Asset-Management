@@ -5,7 +5,10 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.util.Date;
 
-public class AssetStatasChange{
+
+@Entity
+@Table(name = "tb_asset_status_change")
+public class AssetStatusChange {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -29,10 +32,10 @@ public class AssetStatasChange{
     @Column(name = "report_status")
     private Status reportStatus;
 
-    public AssetStatasChange() {
+    public AssetStatusChange() {
     }
 
-    public AssetStatasChange(long id, Asset asset, Employee assetUser, Date createdDate, String conditionNote, Status reportStatus) {
+    public AssetStatusChange(long id, Asset asset, Employee assetUser, Date createdDate, String conditionNote, Status reportStatus) {
         this.id = id;
         this.asset = asset;
         this.assetUser = assetUser;
@@ -91,7 +94,7 @@ public class AssetStatasChange{
 
     @Override
     public String toString() {
-        return "AssetStatasChange{" +
+        return "AssetStatusChange{" +
                 "id=" + id +
                 ", asset=" + asset +
                 ", assetUser=" + assetUser +

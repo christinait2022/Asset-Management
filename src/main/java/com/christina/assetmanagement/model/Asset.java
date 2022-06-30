@@ -1,6 +1,5 @@
 package com.christina.assetmanagement.model;
 
-import org.hibernate.id.Assigned;
 import org.springframework.data.annotation.CreatedDate;
 
 import javax.persistence.*;
@@ -30,9 +29,6 @@ public class Asset {
     @JoinColumn(name = "category_id")
     private Category category;
 
-    @ManyToOne
-    @JoinColumn(name = "employee_id")
-    private Employee employee;
 
     @Column(name = "status")
     private Status status;
@@ -40,14 +36,13 @@ public class Asset {
     public Asset() {
     }
 
-    public Asset(long id, String name, String conditionNote, boolean isDeleted, Date purchaseDate, Category category, Employee employee, Status status) {
+    public Asset(long id, String name, String conditionNote, boolean isDeleted, Date purchaseDate, Category category, Status status) {
         this.id = id;
         this.name = name;
         this.conditionNote = conditionNote;
         this.isDeleted = isDeleted;
         this.purchaseDate = purchaseDate;
         this.category = category;
-        this.employee = employee;
         this.status = status;
     }
 
@@ -99,14 +94,6 @@ public class Asset {
         this.category = category;
     }
 
-    public Employee getEmployee() {
-        return employee;
-    }
-
-    public void setEmployee(Employee employee) {
-        this.employee = employee;
-    }
-
     public Status getStatus() {
         return status;
     }
@@ -124,7 +111,6 @@ public class Asset {
                 ", isDeleted=" + isDeleted +
                 ", purchaseDate=" + purchaseDate +
                 ", category=" + category +
-                ", employee=" + employee +
                 ", status=" + status +
                 '}';
     }

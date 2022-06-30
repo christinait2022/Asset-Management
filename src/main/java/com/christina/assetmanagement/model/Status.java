@@ -1,10 +1,11 @@
 package com.christina.assetmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 public enum Status {
-    Available("A","Available"),
-    Assigned("S","Assigned"),
-    Lost("L","Lost"),
-    Recovered("R","Recovered");
+    Available("A", "Available"),
+    Assigned("S", "Assigned"),
+    Recovered("R", "Recovered");
 
     private String code;
     private String name;
@@ -18,6 +19,7 @@ public enum Status {
         return code;
     }
 
+    @JsonValue
     public String getName() {
         return name;
     }

@@ -7,8 +7,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "tb_category")
-public class Category
-{
+public class Category {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;

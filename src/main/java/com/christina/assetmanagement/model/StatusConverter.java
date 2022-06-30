@@ -1,23 +1,27 @@
 package com.christina.assetmanagement.model;
 
+import com.fasterxml.jackson.annotation.JsonValue;
+
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
 
 @Converter(autoApply = true)
-public class StatusConverter implements AttributeConverter<Status,String> {
+public class StatusConverter implements AttributeConverter<Status, String> {
 
     @Override
     public String convertToDatabaseColumn(Status status) {
-       return status == null? null:status.getCode();
+        return status == null ? null : status.getCode();
     }
 
     @Override
     public Status convertToEntityAttribute(String code) {
-        if(code == null){
+        if (code == null) {
             return null;
         }
-        for(Status status : Status.values()){
-            if(status.getCode().equals(code)){
+
+
+        for (Status status : Status.values()) {
+            if (status.getCode().equals(code)) {
                 return status;
             }
         }
