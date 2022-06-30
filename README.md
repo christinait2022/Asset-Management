@@ -15,12 +15,12 @@
 [PUT] /category/{id}                   update an category by id
 [DELETE] /category/{id}                delete an category by id
 
-[POST] /employee/{employee_id}/lendAsset/{asset_id}     
-create a record of lending asset, when someone lend an asset.
+[POST] /lendAsset/{employee_id}/{asset_id}     
+create a record of the asset being lent, when someone lends an asset
   
-[POST] /employee/{employee_id}/returnAsset/{asset_id}     
-create a record of returning asset, when someone returned an asset.
+[POST] /returnAsset/{employee_id}/{asset_id}     
+create a return asset record, when someone returns an asset
 
-[POST] /employee/{employee_id}/CheckAsset/{asset_id}      
-create a record of Checking asset, when someone has checked the returned asset.
+[POST] /CheckAsset/{employee_id}/{asset_id}      
+create a record of the asset being inspected, when someone inspects the returned asset
 ```

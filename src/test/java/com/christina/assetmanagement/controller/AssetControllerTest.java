@@ -5,6 +5,9 @@ import com.christina.assetmanagement.model.Category;
 import com.christina.assetmanagement.model.Status;
 import com.christina.assetmanagement.repository.CategoryRepository;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.EnumSource;
+import org.junit.jupiter.params.provider.ValueSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
@@ -50,18 +53,22 @@ class AssetControllerTest {
     }
 
     @Test
-    void getAssetById() {
-        Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/1", Asset.class);
+    @ParameterizedTest
+    @ValueSource(ints = {1,2,3,4,5,6,7,8})
+    void getAssetById(int i) {
+        Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + i, Asset.class);
         System.out.println(asset.toString());
         assertNotNull(asset);
     }
 
     @Test
-    void createAsset() {
+    @ParameterizedTest
+    @ValueSource(strings = {"desk001","desk002","desk003","desk004","desk005"})
+    void createAsset(String name) {
         Category category = new Category();
         category.setId(1);
         Asset asset = new Asset();
-        asset.setName("desk001");
+        asset.setName(name);
         asset.setCategory(category);
         asset.setStatus(Status.Available);
         ResponseEntity<Asset> postResponse = restTemplate.postForEntity(getRootUrl() + "/asset", asset, Asset.class);
@@ -70,10 +77,12 @@ class AssetControllerTest {
     }
 
     @Test
-    void updateAsset() {
+    @ParameterizedTest
+    @EnumSource(Status.class)
+    void updateAsset(Status status ) {
         int id = 1;
         Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
-        asset.setStatus(Status.Assigned);
+        asset.setStatus(status);
         restTemplate.put(getRootUrl() + "/asset/" + id, asset);
         Asset updatedAsset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
         assertNotNull(updatedAsset);

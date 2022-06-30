@@ -24,7 +24,7 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
-    @PostMapping("/employee/{employee_id}/lendAsset/{asset_id}")
+    @PostMapping("/lendAsset/{employee_id}/{asset_id}")
     public AssetStatusChange lendAsset(@PathVariable(value = "employee_id") Long employeeId,
                                        @PathVariable(value = "asset_id") Long assetId,
                                        String conditionNote) throws Exception {
@@ -47,7 +47,7 @@ public class EmployeeController {
         return assetStatusChangeRepository.save(assetStatusChange);
     }
 
-    @PostMapping("/employee/{employee_id}/returnAsset/{asset_id}")
+    @PostMapping("/returnAsset/{employee_id}/{asset_id}")
     public AssetStatusChange returnAsset(@PathVariable(value = "employee_id") Long employeeId,
                                          @PathVariable(value = "asset_id") Long assetId,
                                          String conditionNote) throws Exception {
@@ -70,7 +70,7 @@ public class EmployeeController {
         return assetStatusChangeRepository.save(assetStatusChange);
     }
 
-    @PostMapping("/employee/{employee_id}/CheckAsset/{asset_id}")
+    @PostMapping("/CheckAsset/{employee_id}/{asset_id}")
     public AssetStatusChange checkAsset(@PathVariable(value = "employee_id") Long employeeId,
                                          @PathVariable(value = "asset_id") Long assetId,
                                          String conditionNote) throws Exception {
