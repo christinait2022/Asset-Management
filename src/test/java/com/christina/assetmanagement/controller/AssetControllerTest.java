@@ -34,9 +34,19 @@ class AssetControllerTest {
     void getAllAsset() {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/allAsset",
+        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/allAsset" ,
                 HttpMethod.GET, entity, String.class);
         assertNotNull(response.getBody());
+    }
+
+    @Test
+    void getAssetByName() {
+        HttpHeaders headers = new HttpHeaders();
+        HttpEntity<String> entity = new HttpEntity<String>(null, headers);
+        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/Asset/desk" ,
+                HttpMethod.GET, entity, String.class);
+        assertNotNull(response.getBody());
+
     }
 
     @Test
@@ -82,4 +92,6 @@ class AssetControllerTest {
             assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
         }
     }
+
+
 }

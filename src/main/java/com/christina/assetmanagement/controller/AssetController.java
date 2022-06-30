@@ -25,6 +25,12 @@ public class AssetController {
         return assetRepository.findAll();
     }
 
+    @GetMapping("/Asset/{Name_part}")
+    public List<Asset> getAssetByName(@PathVariable(value = "Name_part") String NamePart) {
+        return assetRepository.findByNameContaining(NamePart);
+    }
+
+
     @GetMapping("/asset/{id}")
     public ResponseEntity<Asset> getAssetById(@PathVariable(value = "id") Long assetId) throws Exception {
         Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new Exception("Asset not found for this id :: " + assetId));
@@ -45,7 +51,6 @@ public class AssetController {
         asset.setCategory(assetDetails.getCategory());
         asset.setConditionNote(assetDetails.getConditionNote());
         asset.setStatus(assetDetails.getStatus());
-
 
         final Asset updatedAsset = assetRepository.save(assetDetails);
 
