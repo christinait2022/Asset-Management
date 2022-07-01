@@ -2,6 +2,12 @@ package com.christina.assetmanagement.model;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 
+/**
+ * The status of an asset
+ *
+ * @author Christina
+ * @date 2022/07/01
+ */
 public enum Status {
     Available("A", "Available"),
     Assigned("S", "Assigned"),

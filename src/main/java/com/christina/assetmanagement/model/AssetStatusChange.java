@@ -6,6 +6,15 @@ import javax.persistence.*;
 import java.util.Date;
 
 
+/**
+ * This class keeps records of asset status change,
+ * when employee lends, returns and inspects an asset.
+ *
+ * The Status is defined by Status Enum.
+ *
+ * @author Christina
+ * @date 2022/07/01
+ */
 @Entity
 @Table(name = "tb_asset_status_change")
 public class AssetStatusChange {

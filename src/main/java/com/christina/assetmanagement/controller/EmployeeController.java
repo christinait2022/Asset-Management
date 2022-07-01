@@ -13,6 +13,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * EmployeeController
+ *
+ * @author Christina
+ * @date 2022/07/01
+ */
 @RestController
 @RequestMapping("")
 public class EmployeeController {
@@ -24,6 +30,15 @@ public class EmployeeController {
     @Autowired
     private EmployeeRepository employeeRepository;
 
+    /**
+     * create a record of the asset being lent, when someone lends an asset.
+     *
+     * @param employeeId
+     * @param assetId
+     * @param conditionNote
+     * @return {@code AssetStatusChange}
+     * @throws Exception
+     */
     @PostMapping("/lendAsset/{employee_id}/{asset_id}")
     public AssetStatusChange lendAsset(@PathVariable(value = "employee_id") Long employeeId,
                                        @PathVariable(value = "asset_id") Long assetId,
@@ -47,6 +62,15 @@ public class EmployeeController {
         return assetStatusChangeRepository.save(assetStatusChange);
     }
 
+    /**
+     * create a return asset record, when someone returns an asset.
+     *
+     * @param employeeId
+     * @param assetId
+     * @param conditionNote
+     * @return {@code AssetStatusChange}
+     * @throws Exception
+     */
     @PostMapping("/returnAsset/{employee_id}/{asset_id}")
     public AssetStatusChange returnAsset(@PathVariable(value = "employee_id") Long employeeId,
                                          @PathVariable(value = "asset_id") Long assetId,
@@ -70,6 +94,15 @@ public class EmployeeController {
         return assetStatusChangeRepository.save(assetStatusChange);
     }
 
+    /**
+     * create a record of the asset being inspected, when someone inspects the returned asset.
+     *
+     * @param employeeId
+     * @param assetId
+     * @param conditionNote
+     * @return {@code AssetStatusChange}
+     * @throws Exception
+     */
     @PostMapping("/CheckAsset/{employee_id}/{asset_id}")
     public AssetStatusChange checkAsset(@PathVariable(value = "employee_id") Long employeeId,
                                          @PathVariable(value = "asset_id") Long assetId,

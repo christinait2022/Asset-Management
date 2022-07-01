@@ -2,6 +2,12 @@ package com.christina.assetmanagement.model;
 
 import javax.persistence.*;
 
+/**
+ * Employee
+ *
+ * @author Christina
+ * @date 2022/07/01
+ */
 @Entity
 @Table(name = "tb_employee")
 public class Employee {

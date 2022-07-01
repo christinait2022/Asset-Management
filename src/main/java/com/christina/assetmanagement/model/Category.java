@@ -5,6 +5,12 @@ import org.springframework.data.annotation.CreatedDate;
 import javax.persistence.*;
 import java.util.Date;
 
+/**
+ * Asset category
+ *
+ * @author Christina
+ * @date 2022/07/01
+ */
 @Entity
 @Table(name = "tb_category")
 public class Category {

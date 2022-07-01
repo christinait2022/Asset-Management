@@ -52,16 +52,16 @@ class AssetControllerTest {
 
     }
 
-    @Test
+
     @ParameterizedTest
-    @ValueSource(ints = {1,2,3,4,5,6,7,8})
-    void getAssetById(int i) {
-        Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + i, Asset.class);
+    @ValueSource(ints = {-1,0,1,3,4,5,6,7,8,20000})
+    void getAssetById(int assetId) {
+        Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + assetId, Asset.class);
         System.out.println(asset.toString());
         assertNotNull(asset);
     }
 
-    @Test
+
     @ParameterizedTest
     @ValueSource(strings = {"desk001","desk002","desk003","desk004","desk005"})
     void createAsset(String name) {
@@ -76,27 +76,31 @@ class AssetControllerTest {
         assertNotNull(postResponse.getBody());
     }
 
-    @Test
+
     @ParameterizedTest
     @EnumSource(Status.class)
-    void updateAsset(Status status ) {
-        int id = 1;
+    void updateAsset(Status status) {
+        int id = 5;
         Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
         asset.setStatus(status);
         restTemplate.put(getRootUrl() + "/asset/" + id, asset);
         Asset updatedAsset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
+
         assertNotNull(updatedAsset);
+        assertEquals(status,updatedAsset.getStatus());
+        System.out.println(updatedAsset.toString());
     }
 
 
-    @Test
-    void deleteAsset() {
+    @ParameterizedTest
+    @ValueSource(ints = {-1,0,1,3,4,5,6,7,8,20000})
+    void deleteAsset(int assetId) {
         int id = 1;
-        Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
+        Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + assetId, Asset.class);
         assertNotNull(asset);
-        restTemplate.delete(getRootUrl() + "/asset/" + id);
+        restTemplate.delete(getRootUrl() + "/asset/" + assetId);
         try {
-            asset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
+            asset = restTemplate.getForObject(getRootUrl() + "/asset/" + assetId, Asset.class);
         } catch (final HttpClientErrorException e) {
             assertEquals(e.getStatusCode(), HttpStatus.NOT_FOUND);
         }

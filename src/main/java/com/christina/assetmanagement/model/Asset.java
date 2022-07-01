@@ -1,10 +1,15 @@
 package com.christina.assetmanagement.model;
 
+import java.util.Date;
+import javax.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
 
-import javax.persistence.*;
-import java.util.Date;
-
+/**
+ * Asset.
+ *
+ * @author Christina
+ * @date 2022/07/01
+ */
 @Entity
 @Table(name = "tb_asset")
 public class Asset {
@@ -36,7 +41,8 @@ public class Asset {
     public Asset() {
     }
 
-    public Asset(long id, String name, String conditionNote, boolean isDeleted, Date purchaseDate, Category category, Status status) {
+    public Asset(long id, String name, String conditionNote, boolean isDeleted,
+                 Date purchaseDate, Category category, Status status) {
         this.id = id;
         this.name = name;
         this.conditionNote = conditionNote;
