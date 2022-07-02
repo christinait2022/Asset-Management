@@ -1,16 +1,21 @@
 package com.christina.assetmanagement.controller;
 
 import com.christina.assetmanagement.model.Asset;
+import com.christina.assetmanagement.model.AssetStatusChange;
+import com.christina.assetmanagement.model.Employee;
 import com.christina.assetmanagement.model.Status;
+import com.christina.assetmanagement.payload.ApiResponse;
 import com.christina.assetmanagement.repository.AssetRepository;
+import com.christina.assetmanagement.repository.AssetStatusChangeRepository;
+import com.christina.assetmanagement.repository.EmployeeRepository;
+import com.christina.assetmanagement.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 /**
@@ -24,30 +29,27 @@ import java.util.Map;
 public class AssetController {
 
     @Autowired
-    private AssetRepository assetRepository;
+    AssetService assetService;
 
     /**
-     * list all asset
+     * [GET] /allAsset
+     * list all asset.
+     * <p>
+     * [GET] /allAsset?name=[keyword]
+     * if there is a parameter name, then list all asset whose name containing keyword.
      *
+     * @param keyword
      * @return {@code List<Asset>}
      */
     @GetMapping("/allAsset")
-    public List<Asset> getAllAsset() {
-        return assetRepository.findAll();
+    public ResponseEntity<List<Asset>> getAllAsset(@RequestParam(required = false, value = "name") String keyword) {
+
+            if (keyword == null) {
+                return assetService.getAllAsset();
+            } else {
+               return null;
+            }
     }
-
-
-    /**
-     * list all asset whose name containing name_part
-     *
-     * @param NamePart
-     * @return {@code List<Asset>}
-     */
-    @GetMapping("/Asset/{Name_part}")
-    public List<Asset> getAssetByName(@PathVariable(value = "Name_part") String NamePart) {
-        return assetRepository.findByNameContaining(NamePart);
-    }
-
 
     /**
      * get an asset by id
@@ -57,9 +59,9 @@ public class AssetController {
      * @throws Exception
      */
     @GetMapping("/asset/{id}")
-    public ResponseEntity<Asset> getAssetById(@PathVariable(value = "id") Long assetId) throws Exception {
-        Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new Exception("Asset not found for this id :: " + assetId));
-        return ResponseEntity.ok().body(asset);
+    public ResponseEntity<Asset> getAssetById(@PathVariable(value = "id") Long assetId) {
+
+      return  assetService.getAssetById(assetId);
     }
 
     /**
@@ -69,8 +71,9 @@ public class AssetController {
      * @return {@code Asset}
      */
     @PostMapping("/asset")
-    public Asset createAsset(@Valid @RequestBody Asset asset) {
-        return assetRepository.save(asset);
+    public ResponseEntity<Asset> createAsset(@Valid @RequestBody Asset asset) {
+
+      return assetService.addAsset(asset);
     }
 
     /**
@@ -83,17 +86,10 @@ public class AssetController {
      */
     @PutMapping("/asset/{id}")
     public ResponseEntity<Asset> updateAsset(@PathVariable(value = "id") Long assetId,
-                                             @Valid @RequestBody Asset assetDetails) throws Exception {
-        Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new Exception("Asset not found for this id :: " + assetId));
+                                             @Valid @RequestBody Asset assetDetails) {
 
-        asset.setName(assetDetails.getName());
-        asset.setCategory(assetDetails.getCategory());
-        asset.setConditionNote(assetDetails.getConditionNote());
-        asset.setStatus(assetDetails.getStatus());
+        return assetService.updateAssetById(assetId, assetDetails);
 
-        final Asset updatedAsset = assetRepository.save(assetDetails);
-
-        return ResponseEntity.ok(updatedAsset);
     }
 
     /**
@@ -104,16 +100,58 @@ public class AssetController {
      * @throws Exception
      */
     @DeleteMapping("/asset/{id}")
-    public Map<String, Boolean> deleteAsset(@PathVariable(value = "id") Long assetId)
-            throws Exception {
-        Asset asset = assetRepository.findById(assetId).orElseThrow(() -> new Exception("Asset not found for this id :: " + assetId));
-        Map<String, Boolean> response = new HashMap<>();
-        if (asset.getStatus() == Status.Assigned) {
-            response.put("deleted", Boolean.FALSE);
-        } else {
-            assetRepository.delete(asset);
-            response.put("deleted", Boolean.TRUE);
-        }
-        return response;
+    public ResponseEntity deleteAsset(@PathVariable(value = "id") Long assetId) {
+
+        return assetService.deleteAssetById(assetId);
+    }
+
+    /**
+     * create a record of the asset being lent, when someone lends an asset.
+     *
+     * @param employeeId
+     * @param assetId
+     * @param conditionNote
+     * @return {@code AssetStatusChange}
+     * @throws Exception
+     */
+    @PostMapping("/lendAsset/{employee_id}/{asset_id}")
+    public ResponseEntity<ApiResponse>  lendAsset(@PathVariable(value = "employee_id") Long employeeId,
+                                                       @PathVariable(value = "asset_id") Long assetId,
+                                                       String conditionNote) throws Exception {
+return assetService.lendAsset(employeeId, assetId, conditionNote);
+
+    }
+
+
+    /**
+     * create a return asset record, when someone returns an asset.
+     *
+     * @param employeeId
+     * @param assetId
+     * @param conditionNote
+     * @return {@code AssetStatusChange}
+     * @throws Exception
+     */
+    @PostMapping("/returnAsset/{employee_id}/{asset_id}")
+    public ResponseEntity<ApiResponse>  returnAsset(@PathVariable(value = "employee_id") Long employeeId,
+                                         @PathVariable(value = "asset_id") Long assetId,
+                                         String conditionNote) throws Exception {
+        return assetService.returnAsset(employeeId, assetId, conditionNote);
+    }
+
+    /**
+     * create a record of the asset being inspected, when someone inspects the returned asset.
+     *
+     * @param employeeId
+     * @param assetId
+     * @param conditionNote
+     * @return {@code AssetStatusChange}
+     * @throws Exception
+     */
+    @PostMapping("/CheckAsset/{employee_id}/{asset_id}")
+    public ResponseEntity<ApiResponse> checkAsset(@PathVariable(value = "employee_id") Long employeeId,
+                                                  @PathVariable(value = "asset_id") Long assetId,
+                                                  String conditionNote) throws Exception {
+        return assetService.checkAsset(employeeId, assetId, conditionNote);
     }
 }

@@ -1,14 +1,15 @@
 package com.christina.assetmanagement.controller;
 
+
 import com.christina.assetmanagement.model.Category;
-import com.christina.assetmanagement.repository.CategoryRepository;
-import javax.validation.Valid;
-import java.util.Map;
-import java.util.HashMap;
-import java.util.List;
+import com.christina.assetmanagement.payload.ApiResponse;
+import com.christina.assetmanagement.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import javax.validation.Valid;
+import java.util.List;
 
 
 /**
@@ -22,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 public class CategoryController {
 
     @Autowired
-    private CategoryRepository categoryRepository;
+    private CategoryService categoryService;
 
     /**
      * list all categories
@@ -30,8 +31,9 @@ public class CategoryController {
      * @return {@code List<Category>}
      */
     @GetMapping("/allCategory")
-    public List<Category> getAllCategory() {
-        return categoryRepository.findAll();
+    public ResponseEntity<List<Category>> getAllCategory() {
+
+        return categoryService.getAllCategories();
     }
 
 
@@ -44,8 +46,8 @@ public class CategoryController {
      */
     @GetMapping("/category/{id}")
     public ResponseEntity<Category> getCategoryById(@PathVariable(value = "id") Long categoryId) throws Exception {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new Exception("Category not found for this id :: " + categoryId));
-        return ResponseEntity.ok().body(category);
+
+        return categoryService.getCategoryById(categoryId);
     }
 
     /**
@@ -55,8 +57,8 @@ public class CategoryController {
      * @return {@code Category}
      */
     @PostMapping("/category")
-    public Category createCategory(@Valid @RequestBody Category category) {
-        return categoryRepository.save(category);
+    public ResponseEntity<Category> createCategory(@Valid @RequestBody Category category) {
+        return categoryService.addCategory(category);
     }
 
     /**
@@ -70,14 +72,7 @@ public class CategoryController {
     @PutMapping("/category/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable(value = "id") Long categoryId,
                                                    @Valid @RequestBody Category categoryDetails) throws Exception {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new Exception("Category not found for this id :: " + categoryId));
-
-        category.setName(categoryDetails.getName());
-        category.setDescription(categoryDetails.getDescription());
-
-        final Category updatedCategory = categoryRepository.save(categoryDetails);
-
-        return ResponseEntity.ok(updatedCategory);
+        return categoryService.updateCategoryById(categoryId, categoryDetails);
     }
 
     /**
@@ -88,15 +83,8 @@ public class CategoryController {
      * @throws Exception
      */
     @DeleteMapping("/category/{id}")
-    public Map<String, Boolean> deleteCategory(@PathVariable(value = "id") Long categoryId)
-            throws Exception {
-        Category category = categoryRepository.findById(categoryId).orElseThrow(() -> new Exception("Category not found for this id :: " + categoryId));
-
-        categoryRepository.delete(category);
-
-        Map<String, Boolean> response = new HashMap<>();
-        response.put("deleted", Boolean.TRUE);
-        return response;
+    public ResponseEntity<ApiResponse> deleteCategory(@PathVariable(value = "id") Long categoryId) {
+        return categoryService.deleteCategoryById(categoryId);
     }
 
 }

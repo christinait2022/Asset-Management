@@ -1,8 +1,9 @@
 package com.christina.assetmanagement.model;
 
-import java.util.Date;
-import javax.persistence.*;
 import org.springframework.data.annotation.CreatedDate;
+
+import javax.persistence.*;
+import java.util.Date;
 
 /**
  * Asset.
@@ -14,7 +15,7 @@ import org.springframework.data.annotation.CreatedDate;
 @Table(name = "tb_asset")
 public class Asset {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @Column(name = "name")
@@ -41,6 +42,16 @@ public class Asset {
     public Asset() {
     }
 
+
+    /**
+     * @param id
+     * @param name
+     * @param conditionNote
+     * @param isDeleted
+     * @param purchaseDate
+     * @param category
+     * @param status
+     */
     public Asset(long id, String name, String conditionNote, boolean isDeleted,
                  Date purchaseDate, Category category, Status status) {
         this.id = id;

@@ -1,9 +1,13 @@
 package com.christina.assetmanagement.controller;
 
 import com.christina.assetmanagement.model.Asset;
+import com.christina.assetmanagement.model.AssetStatusChange;
 import com.christina.assetmanagement.model.Category;
 import com.christina.assetmanagement.model.Status;
+import com.christina.assetmanagement.repository.AssetRepository;
+import com.christina.assetmanagement.repository.AssetStatusChangeRepository;
 import com.christina.assetmanagement.repository.CategoryRepository;
+import com.christina.assetmanagement.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -37,7 +41,7 @@ class AssetControllerTest {
     void getAllAsset() {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/allAsset" ,
+        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/allAsset",
                 HttpMethod.GET, entity, String.class);
         assertNotNull(response.getBody());
     }
@@ -46,7 +50,7 @@ class AssetControllerTest {
     void getAssetByName() {
         HttpHeaders headers = new HttpHeaders();
         HttpEntity<String> entity = new HttpEntity<String>(null, headers);
-        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/Asset/desk" ,
+        ResponseEntity<String> response = restTemplate.exchange(getRootUrl() + "/Asset/desk",
                 HttpMethod.GET, entity, String.class);
         assertNotNull(response.getBody());
 
@@ -54,16 +58,17 @@ class AssetControllerTest {
 
 
     @ParameterizedTest
-    @ValueSource(ints = {-1,0,1,3,4,5,6,7,8,20000})
+    @ValueSource(ints = {-1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 20000})
     void getAssetById(int assetId) {
         Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + assetId, Asset.class);
-        System.out.println(asset.toString());
+
         assertNotNull(asset);
+        System.out.println(asset.toString());
     }
 
 
     @ParameterizedTest
-    @ValueSource(strings = {"desk001","desk002","desk003","desk004","desk005"})
+    @ValueSource(strings = {"desk001", "desk002", "desk003", "desk004", "desk005"})
     void createAsset(String name) {
         Category category = new Category();
         category.setId(1);
@@ -80,22 +85,23 @@ class AssetControllerTest {
     @ParameterizedTest
     @EnumSource(Status.class)
     void updateAsset(Status status) {
-        int id = 5;
+        int id = 1;
         Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
+        assertNotNull(asset);
         asset.setStatus(status);
         restTemplate.put(getRootUrl() + "/asset/" + id, asset);
         Asset updatedAsset = restTemplate.getForObject(getRootUrl() + "/asset/" + id, Asset.class);
 
         assertNotNull(updatedAsset);
-        assertEquals(status,updatedAsset.getStatus());
+        assertEquals(status, updatedAsset.getStatus());
         System.out.println(updatedAsset.toString());
     }
 
 
     @ParameterizedTest
-    @ValueSource(ints = {-1,0,1,3,4,5,6,7,8,20000})
+    @ValueSource(ints = {-1, 0, 1, 3, 4, 5, 6, 7, 8, 20000})
     void deleteAsset(int assetId) {
-        int id = 1;
+
         Asset asset = restTemplate.getForObject(getRootUrl() + "/asset/" + assetId, Asset.class);
         assertNotNull(asset);
         restTemplate.delete(getRootUrl() + "/asset/" + assetId);
@@ -107,4 +113,40 @@ class AssetControllerTest {
     }
 
 
+
+    @Test
+    void lendAsset() {
+        int asset_id = 5;
+        int employee_id = 1;
+        ResponseEntity<AssetStatusChange> postResponse = restTemplate.postForEntity(
+                getRootUrl() + "/lendAsset/" + employee_id + "/" + asset_id, null, AssetStatusChange.class);
+        System.out.println(postResponse.toString());
+        assertNotNull(postResponse);
+        assertNotNull(postResponse.getBody());
+    }
+
+    @Test
+    void returnAsset() {
+        int asset_id = 5;
+        int employee_id = 1;
+        ResponseEntity<AssetStatusChange> postResponse = restTemplate.postForEntity(
+                getRootUrl() + "/returnAsset/" + employee_id + "/" + asset_id, null, AssetStatusChange.class);
+
+        System.out.println(postResponse.toString());
+        assertNotNull(postResponse);
+        assertNotNull(postResponse.getBody());
+    }
+
+    @Test
+    void checkAsset() {
+        int asset_id = 5;
+        int employee_id = 1;
+        ResponseEntity<AssetStatusChange> postResponse = restTemplate.postForEntity(
+                getRootUrl() + "/checkAsset/" + employee_id + "/" + asset_id, null, AssetStatusChange.class);
+        System.out.println(postResponse.toString());
+        assertNotNull(postResponse);
+        assertNotNull(postResponse.getBody());
+
+
+}
 }

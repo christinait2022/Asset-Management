@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * This class keeps records of asset status change,
  * when employee lends, returns and inspects an asset.
- *
+ * <p>
  * The Status is defined by Status Enum.
  *
  * @author Christina
@@ -20,7 +20,7 @@ import java.util.Date;
 public class AssetStatusChange {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
 
     @ManyToOne

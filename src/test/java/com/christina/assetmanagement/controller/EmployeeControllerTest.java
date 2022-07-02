@@ -1,8 +1,6 @@
 package com.christina.assetmanagement.controller;
 
-import com.christina.assetmanagement.model.Asset;
 import com.christina.assetmanagement.model.AssetStatusChange;
-import com.christina.assetmanagement.model.Status;
 import com.christina.assetmanagement.repository.AssetRepository;
 import com.christina.assetmanagement.repository.AssetStatusChangeRepository;
 import com.christina.assetmanagement.repository.CategoryRepository;
@@ -14,21 +12,20 @@ import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
 import org.springframework.http.ResponseEntity;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 class EmployeeControllerTest {
 
     @Autowired
+    CategoryRepository categoryRepository;
+    @Autowired
     private AssetRepository assetRepository;
     @Autowired
     private AssetStatusChangeRepository assetStatusChangeRepository;
     @Autowired
     private EmployeeRepository employeeRepository;
-
-    @Autowired
-    CategoryRepository categoryRepository;
     @Autowired
     private TestRestTemplate restTemplate;
     @LocalServerPort
@@ -43,7 +40,7 @@ class EmployeeControllerTest {
         int asset_id = 5;
         int employee_id = 1;
         ResponseEntity<AssetStatusChange> postResponse = restTemplate.postForEntity(
-                getRootUrl() +"/lendAsset/"+ employee_id +"/"+asset_id, null, AssetStatusChange.class);
+                getRootUrl() + "/lendAsset/" + employee_id + "/" + asset_id, null, AssetStatusChange.class);
         System.out.println(postResponse.toString());
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());
@@ -54,7 +51,7 @@ class EmployeeControllerTest {
         int asset_id = 5;
         int employee_id = 1;
         ResponseEntity<AssetStatusChange> postResponse = restTemplate.postForEntity(
-                getRootUrl() +"/returnAsset/"+ employee_id +"/"+asset_id, null, AssetStatusChange.class);
+                getRootUrl() + "/returnAsset/" + employee_id + "/" + asset_id, null, AssetStatusChange.class);
 
         System.out.println(postResponse.toString());
         assertNotNull(postResponse);
@@ -66,7 +63,7 @@ class EmployeeControllerTest {
         int asset_id = 5;
         int employee_id = 1;
         ResponseEntity<AssetStatusChange> postResponse = restTemplate.postForEntity(
-                getRootUrl() +"/checkAsset/"+ employee_id +"/"+asset_id, null, AssetStatusChange.class);
+                getRootUrl() + "/checkAsset/" + employee_id + "/" + asset_id, null, AssetStatusChange.class);
         System.out.println(postResponse.toString());
         assertNotNull(postResponse);
         assertNotNull(postResponse.getBody());

@@ -1,0 +1,398 @@
+GET http://localhost:8080/allAsset
+
+<> 2022-07-02T174136.200.json
+
+###
+
+POST http://localhost:8080/category
+Content-Type: application/json
+
+{
+  "id": 1
+}
+
+<> 2022-07-02T174124.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 3,
+  "name": "content",
+  "isDeleted": "false"
+}
+
+<> 2022-07-02T174120.200.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category": {
+    "id": 1
+  }
+}
+
+<> 2022-07-02T174116.200.json
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T135916.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T135914.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T135913.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T135911.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+"id": 3,
+"name": "content",
+"isDeleted": "false"}
+
+<> 2022-07-02T135856.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T135852.201.json
+
+###
+
+POST http://localhost:8080/category
+Content-Type: application/json
+
+{
+    "id": 1
+  }
+
+<> 2022-07-02T135844.201.json
+
+###
+
+POST http://localhost:8080/category
+Content-Type: application/json
+
+{
+    "id": 1
+  }
+
+<> 2022-07-02T135150.201.json
+
+###
+
+POST http://localhost:8080/category
+Content-Type: application/json
+
+ "category":{
+    "id": 1
+  }
+
+<> 2022-07-02T135113.400.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+"id": 3,
+"name": "content",
+"isDeleted": "false"}
+
+<> 2022-07-02T125642.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 2,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T125638.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+"id": 1,
+"name": "content",
+"isDeleted": "false"}
+
+<> 2022-07-02T125404.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T125400.201.json
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+"id": 1,
+"name": "content",
+"isDeleted": "false"}
+
+<> 2022-07-02T125157.201.json
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+POST http://localhost:8080/asset
+Content-Type: application/json
+
+{
+  "id": 1,
+  "name": "content",
+  "isDeleted": "false",
+  "category":{
+    "id": 1
+  }}
+
+<> 2022-07-02T124908.201.json
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+<> 2022-07-02T122839.200.json
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+<> 2022-07-02T121916.500.json
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=dog
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+<> 2022-07-01T232614.200.json
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+###
+
+GET http://localhost:8080/allAsset?name=flower
+
+<> 2022-07-01T232043.200.json
+
+###
+
+GET http://localhost:8080/allAsset?name=desk
+
+<> 2022-07-01T232026.200.json
+
+###
+
+GET http://localhost:8080/allAsset?name=desk
+
+<> 2022-07-01T231958.200.json
+
+###
+
+GET http://localhost:8080/allAsset?name=desk
+
+<> 2022-07-01T231712.200.json
+
+###
+
+POST http://localhost:8080/employee/1/lendAsset/5
+
+###
+
+POST http://localhost:8080/employee/1/lendAsset/5
+
+###
+
+GET http://localhost:8080/Asset/desk
+
+<> 2022-07-01T032336.200.json
+
+###
+
+GET http://localhost:8080/Asset/desk
+
+<> 2022-07-01T032058.200.json
+
+###
+
+GET http://localhost:8080/Asset/desk
+
+###
+
+POST http://localhost:8080/employee/1/lendAsset/5
+
+###
+

@@ -1,9 +1,10 @@
 # Asset-Management
 
 #### REST API
+
 ```
 [GET] /allAsset                        list all asset.
-[GET] /Asset/{name_part}               list all asset whose name containing name_part.
+[GET] /allAsset?name=[keyword]         list all asset which name contains keyword.
 [POST] /asset                          create an new asset.
 [GET] /asset/{id}                      get an asset by id.
 [PUT] /asset/{id}                      update an asset by id.

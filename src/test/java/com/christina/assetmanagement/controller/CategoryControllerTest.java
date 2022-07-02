@@ -60,6 +60,7 @@ class CategoryControllerTest {
         restTemplate.put(getRootUrl() + "/category/" + id, category);
         Category updatedCategory = restTemplate.getForObject(getRootUrl() + "/category/" + id, Category.class);
         assertNotNull(updatedCategory);
+        assertNotNull(updatedCategory.getName());
         assertArrayEquals("update".toCharArray(), updatedCategory.getName().toCharArray());
 
     }
