@@ -4,10 +4,7 @@ import com.christina.assetmanagement.model.Asset;
 import com.christina.assetmanagement.model.AssetStatusChange;
 import com.christina.assetmanagement.model.Category;
 import com.christina.assetmanagement.model.Status;
-import com.christina.assetmanagement.repository.AssetRepository;
-import com.christina.assetmanagement.repository.AssetStatusChangeRepository;
 import com.christina.assetmanagement.repository.CategoryRepository;
-import com.christina.assetmanagement.repository.EmployeeRepository;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
@@ -113,7 +110,6 @@ class AssetControllerTest {
     }
 
 
-
     @Test
     void lendAsset() {
         int asset_id = 5;
@@ -148,5 +144,5 @@ class AssetControllerTest {
         assertNotNull(postResponse.getBody());
 
 
-}
+    }
 }

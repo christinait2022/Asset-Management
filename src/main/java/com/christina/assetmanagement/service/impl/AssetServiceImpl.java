@@ -42,7 +42,8 @@ public class AssetServiceImpl implements AssetService {
 
     @Override
     public ResponseEntity<List<Asset>> getByNameContaining(String keyword) {
-        return null;
+        List<Asset> assetList = assetRepository.findByNameContaining(keyword);
+        return new ResponseEntity<>(assetList, HttpStatus.OK);
     }
 
     @Override
@@ -100,6 +101,8 @@ public class AssetServiceImpl implements AssetService {
         assetStatusChange.setReportStatus(Status.Assigned);
         assetStatusChange.setConditionNote(conditionNote);
         asset.setStatus(Status.Assigned);
+        assetRepository.save(asset);
+        assetStatusChangeRepository.save(assetStatusChange);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You have lend asset" + assetId + "."), HttpStatus.OK);
     }
 
@@ -120,6 +123,8 @@ public class AssetServiceImpl implements AssetService {
         assetStatusChange.setReportStatus(Status.Recovered);
         assetStatusChange.setConditionNote(conditionNote);
         asset.setStatus(Status.Recovered);
+        assetRepository.save(asset);
+        assetStatusChangeRepository.save(assetStatusChange);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You have returned asset" + assetId + "."), HttpStatus.OK);
     }
 
@@ -140,6 +145,8 @@ public class AssetServiceImpl implements AssetService {
         assetStatusChange.setReportStatus(Status.Available);
         assetStatusChange.setConditionNote(conditionNote);
         asset.setStatus(Status.Available);
+        assetRepository.save(asset);
+        assetStatusChangeRepository.save(assetStatusChange);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You have inspected asset" + assetId + "."), HttpStatus.OK);
     }
 }

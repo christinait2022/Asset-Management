@@ -1,21 +1,14 @@
 package com.christina.assetmanagement.controller;
 
 import com.christina.assetmanagement.model.Asset;
-import com.christina.assetmanagement.model.AssetStatusChange;
-import com.christina.assetmanagement.model.Employee;
-import com.christina.assetmanagement.model.Status;
 import com.christina.assetmanagement.payload.ApiResponse;
-import com.christina.assetmanagement.repository.AssetRepository;
-import com.christina.assetmanagement.repository.AssetStatusChangeRepository;
-import com.christina.assetmanagement.repository.EmployeeRepository;
 import com.christina.assetmanagement.service.AssetService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.*;
+import java.util.List;
 
 
 /**
@@ -44,11 +37,11 @@ public class AssetController {
     @GetMapping("/allAsset")
     public ResponseEntity<List<Asset>> getAllAsset(@RequestParam(required = false, value = "name") String keyword) {
 
-            if (keyword == null) {
-                return assetService.getAllAsset();
-            } else {
-               return null;
-            }
+        if (keyword == null) {
+            return assetService.getAllAsset();
+        } else {
+            return assetService.getByNameContaining(keyword);
+        }
     }
 
     /**
@@ -61,7 +54,7 @@ public class AssetController {
     @GetMapping("/asset/{id}")
     public ResponseEntity<Asset> getAssetById(@PathVariable(value = "id") Long assetId) {
 
-      return  assetService.getAssetById(assetId);
+        return assetService.getAssetById(assetId);
     }
 
     /**
@@ -73,7 +66,7 @@ public class AssetController {
     @PostMapping("/asset")
     public ResponseEntity<Asset> createAsset(@Valid @RequestBody Asset asset) {
 
-      return assetService.addAsset(asset);
+        return assetService.addAsset(asset);
     }
 
     /**
@@ -115,10 +108,10 @@ public class AssetController {
      * @throws Exception
      */
     @PostMapping("/lendAsset/{employee_id}/{asset_id}")
-    public ResponseEntity<ApiResponse>  lendAsset(@PathVariable(value = "employee_id") Long employeeId,
-                                                       @PathVariable(value = "asset_id") Long assetId,
-                                                       String conditionNote) throws Exception {
-return assetService.lendAsset(employeeId, assetId, conditionNote);
+    public ResponseEntity<ApiResponse> lendAsset(@PathVariable(value = "employee_id") Long employeeId,
+                                                 @PathVariable(value = "asset_id") Long assetId,
+                                                 String conditionNote) throws Exception {
+        return assetService.lendAsset(employeeId, assetId, conditionNote);
 
     }
 
@@ -133,9 +126,9 @@ return assetService.lendAsset(employeeId, assetId, conditionNote);
      * @throws Exception
      */
     @PostMapping("/returnAsset/{employee_id}/{asset_id}")
-    public ResponseEntity<ApiResponse>  returnAsset(@PathVariable(value = "employee_id") Long employeeId,
-                                         @PathVariable(value = "asset_id") Long assetId,
-                                         String conditionNote) throws Exception {
+    public ResponseEntity<ApiResponse> returnAsset(@PathVariable(value = "employee_id") Long employeeId,
+                                                   @PathVariable(value = "asset_id") Long assetId,
+                                                   String conditionNote) throws Exception {
         return assetService.returnAsset(employeeId, assetId, conditionNote);
     }
 

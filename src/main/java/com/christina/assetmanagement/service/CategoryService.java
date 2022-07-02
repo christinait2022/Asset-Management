@@ -3,7 +3,6 @@ package com.christina.assetmanagement.service;
 import com.christina.assetmanagement.model.Category;
 import com.christina.assetmanagement.payload.ApiResponse;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 
