@@ -15,7 +15,7 @@ import java.util.List;
 /**
  * <h3>AssetManagement</h3>
  *
- * @author panziye
+ * @author Christina
  * @description <p></p>
  * @date 2022-07-02 15:25
  **/
@@ -23,6 +23,10 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
     @Autowired
     private CategoryRepository categoryRepository;
+
+    public CategoryServiceImpl(CategoryRepository categoryRepository) {
+        this.categoryRepository = categoryRepository;
+    }
 
     @Override
     public ResponseEntity<List<Category>> getAllCategories() {
@@ -32,6 +36,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<Category> getCategoryById(Long id) {
+        if (id == null) {
+            throw new NullPointerException("id is null");
+        }
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
         return new ResponseEntity<>(category, HttpStatus.OK);
@@ -40,12 +47,21 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<Category> addCategory(Category category) {
+        if (category == null) {
+            throw new NullPointerException("category is null");
+        }
         Category newCategory = categoryRepository.save(category);
         return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
     }
 
     @Override
     public ResponseEntity<Category> updateCategoryById(Long id, Category categoryDetails) {
+        if (id == null) {
+            throw new NullPointerException("id is null");
+        }
+        if (categoryDetails == null) {
+            throw new NullPointerException("category is null");
+        }
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Category", "id", id));
         category.setName(categoryDetails.getName());
@@ -57,6 +73,9 @@ public class CategoryServiceImpl implements CategoryService {
 
     @Override
     public ResponseEntity<ApiResponse> deleteCategoryById(Long id) {
+        if (id == null) {
+            throw new NullPointerException("id is null");
+        }
         Category category = categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("category", "id", id));
         categoryRepository.deleteById(id);

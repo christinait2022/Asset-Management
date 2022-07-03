@@ -1,5 +1,9 @@
 package com.christina.assetmanagement.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
 import javax.persistence.*;
 
 /**
@@ -9,6 +13,9 @@ import javax.persistence.*;
  * @date 2022/07/01
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_employee")
 public class Employee {
     @Id
@@ -24,8 +31,7 @@ public class Employee {
     public Employee() {
     }
 
-    public Employee(long id, String fullName, String designation) {
-        this.id = id;
+    public Employee(String fullName, String designation) {
         this.fullName = fullName;
         this.designation = designation;
     }

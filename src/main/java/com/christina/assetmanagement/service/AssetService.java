@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * <h3>AssetManagement</h3>
  *
- * @author panziye
+ * @author Christina
  * @description <p>Asset Service</p>
  * @date 2022-07-02 15:15
  **/
@@ -28,10 +28,5 @@ public interface AssetService {
 
     ResponseEntity<ApiResponse> deleteAssetById(Long id);
 
-    ResponseEntity<ApiResponse> lendAsset(long employeeId, long assetId, String conditionNote);
-
-    ResponseEntity<ApiResponse> returnAsset(long employeeId, long assetId, String conditionNote);
-
-    ResponseEntity<ApiResponse> checkAsset(long employeeId, long assetId, String conditionNote);
 
 }

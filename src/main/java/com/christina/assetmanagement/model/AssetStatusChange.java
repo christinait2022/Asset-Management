@@ -1,6 +1,9 @@
 package com.christina.assetmanagement.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -15,7 +18,11 @@ import java.util.Date;
  * @author Christina
  * @date 2022/07/01
  */
+
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_asset_status_change")
 public class AssetStatusChange {
 
@@ -44,8 +51,7 @@ public class AssetStatusChange {
     public AssetStatusChange() {
     }
 
-    public AssetStatusChange(long id, Asset asset, Employee assetUser, Date createdDate, String conditionNote, Status reportStatus) {
-        this.id = id;
+    public AssetStatusChange(Asset asset, Employee assetUser, Date createdDate, String conditionNote, Status reportStatus) {
         this.asset = asset;
         this.assetUser = assetUser;
         this.createdDate = createdDate;

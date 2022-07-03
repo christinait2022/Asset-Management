@@ -1,6 +1,9 @@
 package com.christina.assetmanagement.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -11,7 +14,12 @@ import java.util.Date;
  * @author Christina
  * @date 2022/07/01
  */
+
+
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_asset")
 public class Asset {
     @Id
@@ -44,7 +52,6 @@ public class Asset {
 
 
     /**
-     * @param id
      * @param name
      * @param conditionNote
      * @param isDeleted
@@ -52,9 +59,9 @@ public class Asset {
      * @param category
      * @param status
      */
-    public Asset(long id, String name, String conditionNote, boolean isDeleted,
+    public Asset(String name, String conditionNote, boolean isDeleted,
                  Date purchaseDate, Category category, Status status) {
-        this.id = id;
+
         this.name = name;
         this.conditionNote = conditionNote;
         this.isDeleted = isDeleted;

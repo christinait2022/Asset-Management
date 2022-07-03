@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 /**
  * <h3>AssetManagement</h3>
  *
- * @author panziye
+ * @author Christina
  * @description <p></p>
  * @date 2022-07-02 16:59
  **/

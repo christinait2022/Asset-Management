@@ -10,7 +10,7 @@ import java.io.Serializable;
 /**
  * <h3>AssetManagement</h3>
  *
- * @author panziye
+ * @author Christina
  * @description <p>1</p>
  * @date 2022-07-02 15:05
  **/

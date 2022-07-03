@@ -34,8 +34,8 @@ class AssetRepositoryTest {
 
     @Test
     public void should_store_a_asset() {
-        Category category = new Category(1, null, null, false, null);
-        Asset asset1 = new Asset(5, "desk001", null, false, null, category, Status.Available);
+        Category category = new Category(null, null, false, null);
+        Asset asset1 = new Asset("desk001", null, false, null, category, Status.Available);
         categoryRepository.save(category);
         Asset asset = assetRepository.save(asset1);
         assertThat(asset).hasFieldOrPropertyWithValue("name", "desk001");

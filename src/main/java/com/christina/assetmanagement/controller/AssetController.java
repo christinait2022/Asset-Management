@@ -3,6 +3,7 @@ package com.christina.assetmanagement.controller;
 import com.christina.assetmanagement.model.Asset;
 import com.christina.assetmanagement.payload.ApiResponse;
 import com.christina.assetmanagement.service.AssetService;
+import com.christina.assetmanagement.service.AssetStatusChange;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -23,6 +24,9 @@ public class AssetController {
 
     @Autowired
     AssetService assetService;
+
+    @Autowired
+    AssetStatusChange assetStatusChange;
 
     /**
      * [GET] /allAsset
@@ -111,7 +115,7 @@ public class AssetController {
     public ResponseEntity<ApiResponse> lendAsset(@PathVariable(value = "employee_id") Long employeeId,
                                                  @PathVariable(value = "asset_id") Long assetId,
                                                  String conditionNote) throws Exception {
-        return assetService.lendAsset(employeeId, assetId, conditionNote);
+        return assetStatusChange.lendAsset(employeeId, assetId, conditionNote);
 
     }
 
@@ -129,7 +133,7 @@ public class AssetController {
     public ResponseEntity<ApiResponse> returnAsset(@PathVariable(value = "employee_id") Long employeeId,
                                                    @PathVariable(value = "asset_id") Long assetId,
                                                    String conditionNote) throws Exception {
-        return assetService.returnAsset(employeeId, assetId, conditionNote);
+        return assetStatusChange.returnAsset(employeeId, assetId, conditionNote);
     }
 
     /**
@@ -145,6 +149,6 @@ public class AssetController {
     public ResponseEntity<ApiResponse> checkAsset(@PathVariable(value = "employee_id") Long employeeId,
                                                   @PathVariable(value = "asset_id") Long assetId,
                                                   String conditionNote) throws Exception {
-        return assetService.checkAsset(employeeId, assetId, conditionNote);
+        return assetStatusChange.checkAsset(employeeId, assetId, conditionNote);
     }
 }

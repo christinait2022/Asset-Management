@@ -1,6 +1,9 @@
 package com.christina.assetmanagement.model;
 
+import org.hibernate.annotations.DynamicInsert;
+import org.hibernate.annotations.DynamicUpdate;
 import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -12,6 +15,9 @@ import java.util.Date;
  * @date 2022/07/01
  */
 @Entity
+@DynamicInsert
+@DynamicUpdate
+@EntityListeners(AuditingEntityListener.class)
 @Table(name = "tb_category")
 public class Category {
     @Id
@@ -34,8 +40,8 @@ public class Category {
     public Category() {
     }
 
-    public Category(long id, String name, String description, boolean isDeleted, Date createDate) {
-        this.id = id;
+    public Category(String name, String description, boolean isDeleted, Date createDate) {
+
         this.name = name;
         this.description = description;
         this.isDeleted = isDeleted;
