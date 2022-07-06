@@ -60,6 +60,9 @@ public class AssetServiceImpl implements AssetService {
         if (asset == null) {
             throw new NullPointerException("asset is null");
         }
+        if (asset.getName() == null) {
+            throw new NullPointerException("asset is null");
+        }
         Asset newAsset = assetRepository.save(asset);
         return new ResponseEntity<>(newAsset, HttpStatus.OK);
     }

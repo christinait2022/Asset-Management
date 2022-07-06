@@ -42,10 +42,9 @@ public class CategoryController {
      *
      * @param categoryId
      * @return {@code ResponseEntity<Category>}
-     * @throws Exception
      */
     @GetMapping("/category/{id}")
-    public ResponseEntity<Category> getCategoryById(@PathVariable(value = "id") Long categoryId) throws Exception {
+    public ResponseEntity<Category> getCategoryById(@PathVariable(value = "id") Long categoryId) {
 
         return categoryService.getCategoryById(categoryId);
     }
@@ -67,11 +66,10 @@ public class CategoryController {
      * @param categoryId
      * @param categoryDetails
      * @return {@code ResponseEntity<Category>}
-     * @throws Exception
      */
     @PutMapping("/category/{id}")
     public ResponseEntity<Category> updateCategory(@PathVariable(value = "id") Long categoryId,
-                                                   @Valid @RequestBody Category categoryDetails) throws Exception {
+                                                   @Valid @RequestBody Category categoryDetails) {
         return categoryService.updateCategoryById(categoryId, categoryDetails);
     }
 
@@ -80,7 +78,6 @@ public class CategoryController {
      *
      * @param categoryId
      * @return {@code Map<String, Boolean>}
-     * @throws Exception
      */
     @DeleteMapping("/category/{id}")
     public ResponseEntity<ApiResponse> deleteCategory(@PathVariable(value = "id") Long categoryId) {

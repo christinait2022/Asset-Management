@@ -3,7 +3,7 @@ package com.christina.assetmanagement.controller;
 import com.christina.assetmanagement.model.Asset;
 import com.christina.assetmanagement.payload.ApiResponse;
 import com.christina.assetmanagement.service.AssetService;
-import com.christina.assetmanagement.service.AssetStatusChange;
+import com.christina.assetmanagement.service.AssetStatusChangeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -26,7 +26,7 @@ public class AssetController {
     AssetService assetService;
 
     @Autowired
-    AssetStatusChange assetStatusChange;
+    AssetStatusChangeService assetStatusChangeService;
 
     /**
      * [GET] /allAsset
@@ -53,7 +53,6 @@ public class AssetController {
      *
      * @param assetId
      * @return {@code ResponseEntity<Asset>}
-     * @throws Exception
      */
     @GetMapping("/asset/{id}")
     public ResponseEntity<Asset> getAssetById(@PathVariable(value = "id") Long assetId) {
@@ -79,7 +78,6 @@ public class AssetController {
      * @param assetId
      * @param assetDetails
      * @return {@code ResponseEntity<Asset>}
-     * @throws Exception
      */
     @PutMapping("/asset/{id}")
     public ResponseEntity<Asset> updateAsset(@PathVariable(value = "id") Long assetId,
@@ -94,10 +92,9 @@ public class AssetController {
      *
      * @param assetId
      * @return {@code Map<String, Boolean>}
-     * @throws Exception
      */
     @DeleteMapping("/asset/{id}")
-    public ResponseEntity deleteAsset(@PathVariable(value = "id") Long assetId) {
+    public ResponseEntity<ApiResponse> deleteAsset(@PathVariable(value = "id") Long assetId) {
 
         return assetService.deleteAssetById(assetId);
     }
@@ -109,13 +106,12 @@ public class AssetController {
      * @param assetId
      * @param conditionNote
      * @return {@code AssetStatusChange}
-     * @throws Exception
      */
     @PostMapping("/lendAsset/{employee_id}/{asset_id}")
     public ResponseEntity<ApiResponse> lendAsset(@PathVariable(value = "employee_id") Long employeeId,
                                                  @PathVariable(value = "asset_id") Long assetId,
-                                                 String conditionNote) throws Exception {
-        return assetStatusChange.lendAsset(employeeId, assetId, conditionNote);
+                                                 String conditionNote) {
+        return assetStatusChangeService.lendAsset(employeeId, assetId, conditionNote);
 
     }
 
@@ -127,13 +123,12 @@ public class AssetController {
      * @param assetId
      * @param conditionNote
      * @return {@code AssetStatusChange}
-     * @throws Exception
      */
     @PostMapping("/returnAsset/{employee_id}/{asset_id}")
     public ResponseEntity<ApiResponse> returnAsset(@PathVariable(value = "employee_id") Long employeeId,
                                                    @PathVariable(value = "asset_id") Long assetId,
-                                                   String conditionNote) throws Exception {
-        return assetStatusChange.returnAsset(employeeId, assetId, conditionNote);
+                                                   String conditionNote) {
+        return assetStatusChangeService.returnAsset(employeeId, assetId, conditionNote);
     }
 
     /**
@@ -143,12 +138,11 @@ public class AssetController {
      * @param assetId
      * @param conditionNote
      * @return {@code AssetStatusChange}
-     * @throws Exception
      */
     @PostMapping("/CheckAsset/{employee_id}/{asset_id}")
     public ResponseEntity<ApiResponse> checkAsset(@PathVariable(value = "employee_id") Long employeeId,
                                                   @PathVariable(value = "asset_id") Long assetId,
-                                                  String conditionNote) throws Exception {
-        return assetStatusChange.checkAsset(employeeId, assetId, conditionNote);
+                                                  String conditionNote) {
+        return assetStatusChangeService.checkAsset(employeeId, assetId, conditionNote);
     }
 }

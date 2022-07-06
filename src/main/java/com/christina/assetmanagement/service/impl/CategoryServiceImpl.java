@@ -76,7 +76,7 @@ public class CategoryServiceImpl implements CategoryService {
         if (id == null) {
             throw new NullPointerException("id is null");
         }
-        Category category = categoryRepository.findById(id)
+        categoryRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("category", "id", id));
         categoryRepository.deleteById(id);
         return new ResponseEntity<>(new ApiResponse(Boolean.TRUE, "You successfully deleted category"), HttpStatus.OK);

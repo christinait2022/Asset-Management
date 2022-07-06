@@ -24,7 +24,7 @@ public class StatusConverter implements AttributeConverter<Status, String> {
     }
 
     /**
-     * for selete
+     * for select
      *
      * @param code
      * @return {@code Status}
